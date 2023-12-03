@@ -1,4 +1,4 @@
-import type {Ace, Range} from "ace-builds";
+import type {Ace, Range} from 'ace-builds';
 import type {SimpleChange, EditorFacade} from 'collaborative-editor';
 
 export class AceEditorFacade implements EditorFacade {

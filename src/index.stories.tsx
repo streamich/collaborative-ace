@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {Model} from 'json-joy/es2020/json-crdt';
-import AceEditor from "react-ace";
+import AceEditor from 'react-ace';
 import {bind} from '.';
-import type {Ace} from "ace-builds";
+import type {Ace} from 'ace-builds';
 import type {Meta, StoryObj} from '@storybook/react';
 
 interface EditorProps {
@@ -10,7 +10,7 @@ interface EditorProps {
 }
 
 const Editor: React.FC<EditorProps> = ({src = ''}) => {
-  const divEl = React.useRef<HTMLDivElement>(null);
+  const editorRef = React.useRef<Ace.Editor>(null);
   const unbindRef = React.useRef<() => void>(null);
   const [model, clone] = React.useMemo(() => {
     const model = Model.withLogicalClock();
@@ -21,18 +21,24 @@ const Editor: React.FC<EditorProps> = ({src = ''}) => {
   React.useEffect(() => {
     return () => {
       unbindRef.current?.();
-    }; 
+    };
   }, []);
 
   const insert = (text: string, position?: number) => {
-    // const editor = editorRef.current;
-
+    const editor = editorRef.current;
+    if (!editor) return;
+    const session = editor.session;
+    const doc = session.doc;
+    const pos = position ?? editor.getValue().length;
+    const docPos = doc.indexToPosition(pos, 0);
+    session.insert(docPos, text);
   };
 
   return (
     <div>
       <AceEditor
         onLoad={(editor: Ace.Editor) => {
+          (editorRef.current as any) = editor;
           (unbindRef.current as any) = bind(model.api.str([]), editor, true);
         }}
       />
