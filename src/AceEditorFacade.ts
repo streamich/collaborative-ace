@@ -33,11 +33,15 @@ export class AceEditorFacade implements EditorFacade {
     return this.editor.getValue();
   }
 
-  // If there is no dedicated method for getting the length of the text, then
-  // better not to implement this method at all.
-  // public getLength(): number {
-  //   return this.editor.getValue().length;
-  // }
+  public getLength(): number {
+    const doc = this.editor.getSession().getDocument();
+    const nl = doc.getNewLineCharacter().length;
+    const lines = doc.getAllLines();
+    let length = 0;
+    for (let i = 0; i < lines.length; i++) length += lines[i].length + nl;
+    length -= nl;
+    return length;
+  }
 
   public set(text: string): void {
     this.editor.setValue(text);
