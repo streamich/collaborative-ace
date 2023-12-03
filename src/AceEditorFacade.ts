@@ -1,9 +1,8 @@
-import type {Ace} from "ace-builds";
+import type {Ace, Range} from "ace-builds";
 import type {SimpleChange, EditorFacade} from 'collaborative-editor';
 
 export class AceEditorFacade implements EditorFacade {
   public onchange?: (changes: SimpleChange[] | void) => void;
-  public onselection?: () => void;
 
   constructor(protected readonly editor: Ace.Editor) {
     editor.on('change', this.onChange);
@@ -11,7 +10,7 @@ export class AceEditorFacade implements EditorFacade {
 
   private readonly onChange = (delta: Ace.Delta) => {
     if (delta && typeof delta == 'object' && delta.start && delta.end) {
-      const doc = this.editor.getSession().getDocument();
+      const doc = this.editor.session.doc;
       const start = doc.positionToIndex(delta.start);
       const text = delta.lines.join('\n');
       switch (delta.action) {
@@ -34,7 +33,7 @@ export class AceEditorFacade implements EditorFacade {
   }
 
   public getLength(): number {
-    const doc = this.editor.getSession().getDocument();
+    const doc = this.editor.session.doc;
     const nl = doc.getNewLineCharacter().length;
     const lines = doc.getAllLines();
     let length = 0;
@@ -47,21 +46,22 @@ export class AceEditorFacade implements EditorFacade {
     this.editor.setValue(text);
   }
 
-  // public ins(from: number, insert: string): void {
-  //   throw new Error('Method not implemented.');
-  // }
+  public ins(pos: number, text: string): void {
+    const session = this.editor.session;
+    const doc = session.doc;
+    const position = doc.indexToPosition(pos, 0);
+    session.insert(position, text);
+  }
 
-  // public del(from: number, length: number): void {
-  //   throw new Error('Method not implemented.');
-  // }
-
-  // public getSelection(): [number, number, -1 | 0 | 1] | null {
-  //   throw new Error('Method not implemented.');
-  // }
-
-  // public setSelection(start: number, end: number, direction: -1 | 0 | 1): void {
-  //   throw new Error('Method not implemented.');
-  // }
+  public del(pos: number, len: number): void {
+    const session = this.editor.session;
+    const doc = session.doc;
+    const R = session.selection.getRange().constructor as typeof Range;
+    const start = doc.indexToPosition(pos, 0);
+    const end = doc.indexToPosition(pos + len, 0);
+    const range = new R(start.row, start.column, end.row, end.column);
+    session.remove(range);
+  }
 
   public dispose(): void {
     this.editor.off('change', this.onChange);
