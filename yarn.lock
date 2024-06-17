@@ -4733,7 +4733,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:^1.32.0, ace-builds@npm:^1.4.14":
+"ace-builds@npm:^1.32.0, ace-builds@npm:^1.32.8":
   version: 1.35.0
   resolution: "ace-builds@npm:1.35.0"
   checksum: 10c0/f5bcde60e26718634d87aba84fee4c110fea48ba76aa0fc2d73b8c945e9626dbe95be943a0f3fdb16a4c9594d1a7b0d28979b94f73ca9c7073a8269e20e42cfb
@@ -5800,7 +5800,7 @@ __metadata:
     json-joy: "npm:^11.9.1"
     prettier: "npm:^3.1.0"
     react: "npm:^18.2.0"
-    react-ace: "npm:^10.1.0"
+    react-ace: "npm:^11.0.0"
     react-dom: "npm:^18.2.0"
     rimraf: "npm:^5.0.5"
     storybook: "npm:^7.6.2"
@@ -11145,19 +11145,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-ace@npm:^10.1.0":
-  version: 10.1.0
-  resolution: "react-ace@npm:10.1.0"
+"react-ace@npm:^11.0.0":
+  version: 11.0.1
+  resolution: "react-ace@npm:11.0.1"
   dependencies:
-    ace-builds: "npm:^1.4.14"
+    ace-builds: "npm:^1.32.8"
     diff-match-patch: "npm:^1.0.5"
     lodash.get: "npm:^4.4.2"
     lodash.isequal: "npm:^4.5.0"
-    prop-types: "npm:^15.7.2"
+    prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ^0.13.0 || ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
     react-dom: ^0.13.0 || ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/c7f4b08ec9873662b33b1e3d3e9312a5172120425b3842310438430ed0618a00de0e076defed057658ae0ae565d943fd573ae6decf13b7d1ca3f27eb26b0ce81
+  checksum: 10c0/fa8acd2dc977d5edf6d99e238429c696c3cb4f35fb9f78b296cff875a399b12c6672618f34495be00c6d96ca877c3e30f37c5235b9b3878f65d19aa0ed5dab69
   languageName: node
   linkType: hard
 
