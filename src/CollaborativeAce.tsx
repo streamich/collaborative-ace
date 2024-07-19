@@ -12,12 +12,7 @@ export interface CollaborativeAceProps extends Omit<IAceEditorProps, 'onLoad'> {
   onLoad?: (editor: Editor) => void;
 }
 
-export const CollaborativeAce: React.FC<CollaborativeAceProps> = ({
-  str,
-  polling,
-  onLoad,
-  ...rest
-}) => {
+export const CollaborativeAce: React.FC<CollaborativeAceProps> = ({str, polling, onLoad, ...rest}) => {
   const unbindRef = React.useRef<() => void>(null);
   const editorRef = React.useRef<Ace.Editor>(null);
 
@@ -33,10 +28,5 @@ export const CollaborativeAce: React.FC<CollaborativeAceProps> = ({
     onLoad?.(editor);
   };
 
-  return (
-    <AceEditor
-      {...rest}
-      onLoad={handleLoad}
-    />
-  );
+  return <AceEditor {...rest} onLoad={handleLoad} />;
 };

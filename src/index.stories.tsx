@@ -31,7 +31,13 @@ const Editor: React.FC<EditorProps> = ({src = ''}) => {
 
   return (
     <div>
-      <CollaborativeAce str={model.api.str([])} onLoad={(editor) => {(editorRef as any).current = editor;}} style={{border: '1px solid #aaa'}} />
+      <CollaborativeAce
+        str={model.api.str([])}
+        onLoad={(editor) => {
+          (editorRef as any).current = editor;
+        }}
+        style={{border: '1px solid #aaa'}}
+      />
       <div>
         <button onClick={() => insert('!')}>Append "!" to editor</button>
       </div>
