@@ -6,7 +6,7 @@ import type {Ace} from 'ace-builds';
 
 export type Editor = Ace.Editor;
 
-export interface CollaborativeAceProps extends Omit<IAceEditorProps, 'onLoad'> {
+export interface CollaborativeAceProps extends Omit<IAceEditorProps, 'onLoad' | 'value'> {
   str: StrApi;
   polling?: boolean;
   onLoad?: (editor: Editor) => void;
@@ -28,5 +28,5 @@ export const CollaborativeAce: React.FC<CollaborativeAceProps> = ({str, polling,
     onLoad?.(editor);
   };
 
-  return <AceEditor {...rest} onLoad={handleLoad} />;
+  return <AceEditor {...rest} value={str.view()} onLoad={handleLoad} />;
 };
