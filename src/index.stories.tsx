@@ -1,7 +1,5 @@
 import * as React from 'react';
 import {Model} from 'json-joy/lib/json-crdt';
-import AceEditor from 'react-ace';
-import {bind} from '.';
 import type {Ace} from 'ace-builds';
 import type {Meta, StoryObj} from '@storybook/react';
 import {CollaborativeAce} from './CollaborativeAce';
