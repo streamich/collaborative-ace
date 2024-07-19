@@ -1,9 +1,8 @@
 import * as React from 'react';
 import {Model} from 'json-joy/lib/json-crdt';
-import AceEditor from 'react-ace';
-import {bind} from '.';
 import type {Ace} from 'ace-builds';
 import type {Meta, StoryObj} from '@storybook/react';
+import {CollaborativeAce} from './CollaborativeAce';
 
 interface EditorProps {
   src: string;
@@ -11,18 +10,12 @@ interface EditorProps {
 
 const Editor: React.FC<EditorProps> = ({src = ''}) => {
   const editorRef = React.useRef<Ace.Editor>(null);
-  const unbindRef = React.useRef<() => void>(null);
   const [model, clone] = React.useMemo(() => {
     const model = Model.withLogicalClock();
     model.api.root(src);
     return [model, model.clone()];
   }, []);
   React.useSyncExternalStore(model.api.subscribe, () => model.tick);
-  React.useEffect(() => {
-    return () => {
-      unbindRef.current?.();
-    };
-  }, []);
 
   const insert = (text: string, position?: number) => {
     const editor = editorRef.current;
@@ -36,11 +29,12 @@ const Editor: React.FC<EditorProps> = ({src = ''}) => {
 
   return (
     <div>
-      <AceEditor
-        onLoad={(editor: Ace.Editor) => {
-          (editorRef.current as any) = editor;
-          (unbindRef.current as any) = bind(model.api.str([]), editor, true);
+      <CollaborativeAce
+        str={model.api.str([])}
+        onLoad={(editor) => {
+          (editorRef as any).current = editor;
         }}
+        style={{border: '1px solid #aaa'}}
       />
       <div>
         <button onClick={() => insert('!')}>Append "!" to editor</button>
