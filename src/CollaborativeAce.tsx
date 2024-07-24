@@ -1,13 +1,13 @@
 import * as React from 'react';
-import {StrApi} from 'json-joy/lib/json-crdt';
-import AceEditor, {IAceEditorProps} from 'react-ace';
+import AceEditor, {type IAceEditorProps} from 'react-ace';
 import {bind} from '.';
+import type {CollaborativeStr} from 'collaborative-editor';
 import type {Ace} from 'ace-builds';
 
 export type Editor = Ace.Editor;
 
 export interface CollaborativeAceProps extends Omit<IAceEditorProps, 'onLoad' | 'value'> {
-  str: StrApi;
+  str: () => CollaborativeStr;
   polling?: boolean;
   onLoad?: (editor: Editor) => void;
 }
@@ -28,5 +28,5 @@ export const CollaborativeAce: React.FC<CollaborativeAceProps> = ({str, polling,
     onLoad?.(editor);
   };
 
-  return <AceEditor {...rest} value={str.view()} onLoad={handleLoad} />;
+  return <AceEditor {...rest} value={str().view()} onLoad={handleLoad} />;
 };
