@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {Model} from 'json-joy/lib/json-crdt';
+import {CollaborativeAce} from './CollaborativeAce';
 import type {Ace} from 'ace-builds';
 import type {Meta, StoryObj} from '@storybook/react';
-import {CollaborativeAce} from './CollaborativeAce';
 
 interface EditorProps {
   src: string;
@@ -11,7 +11,7 @@ interface EditorProps {
 const Editor: React.FC<EditorProps> = ({src = ''}) => {
   const editorRef = React.useRef<Ace.Editor>(null);
   const [model, clone] = React.useMemo(() => {
-    const model = Model.withLogicalClock();
+    const model = Model.create();
     model.api.root(src);
     return [model, model.clone()];
   }, []);
@@ -30,7 +30,7 @@ const Editor: React.FC<EditorProps> = ({src = ''}) => {
   return (
     <div>
       <CollaborativeAce
-        str={model.api.str([])}
+        str={() => model.api.str([])}
         onLoad={(editor) => {
           (editorRef as any).current = editor;
         }}
