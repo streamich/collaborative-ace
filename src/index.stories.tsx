@@ -14,7 +14,7 @@ const Editor: React.FC<EditorProps> = ({src = ''}) => {
     const model = Model.create();
     model.api.root(src);
     return [model, model.clone()];
-  }, []);
+  }, [src]);
   React.useSyncExternalStore(model.api.subscribe, () => model.tick);
 
   const insert = (text: string, position?: number) => {
@@ -37,10 +37,11 @@ const Editor: React.FC<EditorProps> = ({src = ''}) => {
         style={{border: '1px solid #aaa'}}
       />
       <div>
-        <button onClick={() => insert('!')}>Append "!" to editor</button>
+        <button type={'button'} onClick={() => insert('!')}>Append "!" to editor</button>
       </div>
       <div>
         <button
+          type={'button'}
           onClick={() =>
             setTimeout(() => {
               const str = model.api.str([]);
@@ -53,6 +54,7 @@ const Editor: React.FC<EditorProps> = ({src = ''}) => {
       </div>
       <div>
         <button
+          type={'button'}
           onClick={() =>
             setTimeout(() => {
               const ace = editorRef.current;
@@ -67,6 +69,7 @@ const Editor: React.FC<EditorProps> = ({src = ''}) => {
       </div>
       <div>
         <button
+          type={'button'}
           onClick={() =>
             setTimeout(() => {
               model.api.str([]).ins(0, '1. ');
@@ -78,6 +81,7 @@ const Editor: React.FC<EditorProps> = ({src = ''}) => {
       </div>
       <div>
         <button
+          type={'button'}
           onClick={() => {
             setTimeout(() => {
               model.reset(clone);
@@ -89,6 +93,7 @@ const Editor: React.FC<EditorProps> = ({src = ''}) => {
       </div>
       <div>
         <button
+          type={'button'}
           onClick={() => {
             setTimeout(() => {
               model.api.str([]).del(0, 1);

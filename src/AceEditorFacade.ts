@@ -9,7 +9,7 @@ export class AceEditorFacade implements EditorFacade {
   }
 
   private readonly onChange = (delta: Ace.Delta) => {
-    if (delta && typeof delta == 'object' && delta.start && delta.end) {
+    if (delta && typeof delta === 'object' && delta.start && delta.end) {
       const doc = this.editor.session.doc;
       const start = doc.positionToIndex(delta.start);
       const text = delta.lines.join('\n');
