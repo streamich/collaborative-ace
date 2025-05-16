@@ -55,6 +55,20 @@ const Editor: React.FC<EditorProps> = ({src = ''}) => {
         <button
           onClick={() =>
             setTimeout(() => {
+              const ace = editorRef.current;
+              if (!ace) return;
+              const pos = ace.session.doc.indexToPosition(ace.getValue().length, 0);
+              ace.session.insert(pos, '!');
+            }, 2000)
+          }
+        >
+          Append "!" to editor after 2s
+        </button>
+      </div>
+      <div>
+        <button
+          onClick={() =>
+            setTimeout(() => {
               model.api.str([]).ins(0, '1. ');
             }, 2000)
           }
