@@ -37,7 +37,9 @@ const Editor: React.FC<EditorProps> = ({src = ''}) => {
         style={{border: '1px solid #aaa'}}
       />
       <div>
-        <button type={'button'} onClick={() => insert('!')}>Append "!" to editor</button>
+        <button type={'button'} onClick={() => insert('!')}>
+          Append "!" to editor
+        </button>
       </div>
       <div>
         <button
